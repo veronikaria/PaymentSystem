@@ -66,6 +66,24 @@ CREATE TABLE Delivery(
 	SalaryEnd AS CASE WHEN DAY(Date)<=10 THEN Salary ELSE Salary*1.01 END
 );
 
+CREATE TABLE Weekend
+(
+	WeekendId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	"Date" DATE NOT NULL,
+	"Year" AS YEAR("Date"),
+	"Month" AS MONTH("Date"),
+	"Day" AS DAY("Date")
+)
+
+CREATE TABLE Holiday
+(
+	HolidayId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	"Date" DATE NOT NULL,
+	"Year" AS YEAR("Date"),
+	"Month" AS MONTH("Date"),
+	"Day" AS DAY("Date")
+)
+
 ALTER TABLE Employee
 ADD FOREIGN KEY (SubdivisionId) REFERENCES Subdivision(SubdivisionId);
 
