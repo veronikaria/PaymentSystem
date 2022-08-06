@@ -75,6 +75,13 @@ CREATE TABLE Weekend
 	"Day" AS DAY("Date")
 )
 
+CREATE TABLE HoursEmployee(
+	HoursEmployeeId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	"Date" DATE NOT NULL,
+	EmployeeId INT NOT NULL,
+	"Hours" INT NOT NULL
+);
+
 CREATE TABLE Holiday
 (
 	HolidayId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
