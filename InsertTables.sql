@@ -9,7 +9,6 @@ VALUES
 ('Manual QA Engineer'),
 ('Provincial Sys-Analyst')
 
-
 INSERT INTO Subdivision
 ("Name", LeaderId)
 VAlUES
@@ -36,7 +35,6 @@ VALUES
 (2, 2, NEXT VALUE FOR RegistrationSequence, 'Featherwatcher', 'Eddie', 'Ivanovych', '883459199', '1978-12-08', 'Kyiv')
 
 
-
 INSERT INTO Pay
 (PostId, TariffMain)
 VALUES
@@ -46,3 +44,73 @@ VALUES
 (4, 630),
 (5, 450),
 (6, 490)
+
+DECLARE @StartDate DATETIME
+DECLARE @StartSaturdayDate DATETIME
+DECLARE @StartSundayDate DATETIME
+DECLARE @EndDate DATETIME
+SET @StartDate = '01-01-2019'
+DECLARE @Find INT = 0
+WHILE @Find=0
+BEGIN
+   IF DATEPART(dw, @StartDate) = 7 
+   BEGIN
+		SET @StartSaturdayDate=@StartDate 
+		SET @StartSundayDate=DATEADD(dd, 1, @StartDate)
+		SET @Find=1
+	END
+   ELSE IF DATEPART(dw, @StartDate) = 1
+   BEGIN
+		SET @StartSundayDate=@StartDate 
+		SET @StartSaturdayDate=DATEADD(dd, -1, @StartDate)
+		SET @Find=1
+   END
+   ELSE
+   SET @StartDate = DATEADD(dd, 1, @StartDate)
+END
+SET @EndDate = GETDATE()
+
+WHILE @StartSaturdayDate <= @EndDate
+BEGIN
+	INSERT INTO Weekend
+	("Date")
+	VALUES (@StartSaturdayDate), (@StartSundayDate)
+	SET @StartSaturdayDate = DATEADD(dd, 7, @StartSaturdayDate)
+	SET @StartSundayDate = DATEADD(dd, 7, @StartSundayDate)
+END
+
+INSERT INTO Holiday
+VALUES
+('2019-01-01'),
+('2019-01-07'),
+('2019-03-08'),
+('2019-04-28'),
+('2019-05-01'),
+('2019-05-09'),
+('2019-06-16'),
+('2019-06-28'),
+('2019-08-24'),
+('2019-10-14'),
+('2019-12-25'),
+('2020-01-01'),
+('2020-01-07'),
+('2020-03-08'),
+('2020-04-19'),
+('2020-05-01'),
+('2020-05-09'),
+('2020-06-07'),
+('2020-06-28'),
+('2020-08-24'),
+('2020-10-14'),
+('2020-12-25'),
+('2021-01-01'),
+('2021-01-07'),
+('2021-03-08'),
+('2021-05-01'),
+('2021-05-02'),
+('2021-05-09'),
+('2021-06-20'),
+('2021-06-28'),
+('2021-08-24'),
+('2021-10-14'),
+('2021-12-25')
