@@ -1,4 +1,6 @@
 
+-- INSERT
+
 CREATE TRIGGER PayCreateUserAndDate
 ON Pay
 AFTER INSERT
@@ -18,4 +20,18 @@ BEGIN
 	END
 CLOSE mycursor
 DEALLOCATE mycursor
+END
+
+-- UPDATE
+
+CREATE TRIGGER PayUpdateUserAndDate
+ON Pay
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Pay SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE PayId = (
+		SELECT PayId from inserted
+	)
 END
