@@ -1,4 +1,6 @@
 
+-- INSERT
+
 CREATE TRIGGER WorkingHoursCreateUserAndDate
 ON WorkingHours
 AFTER INSERT
@@ -18,4 +20,18 @@ BEGIN
 	END
 CLOSE mycursor
 DEALLOCATE mycursor
+END
+
+-- UPDATE
+
+CREATE TRIGGER WorkingHoursUpdateUserAndDate
+ON WorkingHours
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE WorkingHours SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE WorkingHoursId = (
+		SELECT WorkingHoursId from inserted
+	)
 END
