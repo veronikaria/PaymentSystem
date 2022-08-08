@@ -1,4 +1,6 @@
 
+-- INSERT
+
 CREATE TRIGGER EmployeeCreateUserAndDate
 ON Employee
 AFTER INSERT
@@ -18,4 +20,18 @@ BEGIN
 	END
 CLOSE mycursor
 DEALLOCATE mycursor
+END
+
+-- UPDATE
+
+CREATE TRIGGER EmployeeUpdateUserAndDate
+ON Employee
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Employee SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE EmployeeId = (
+		SELECT EmployeeId from inserted
+	)
 END
