@@ -116,3 +116,7 @@ ADD FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId);
 
 ALTER TABLE Delivery
 ADD FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId);
+
+ALTER TABLE Employee
+ADD IsWorks BIT DEFAULT 1 NOT NULL
+
