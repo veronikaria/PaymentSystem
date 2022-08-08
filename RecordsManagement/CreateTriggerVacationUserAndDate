@@ -1,4 +1,6 @@
 
+-- INSERT 
+
 CREATE TRIGGER VacationCreateUserAndDate
 ON Vacation
 AFTER INSERT
@@ -18,4 +20,18 @@ BEGIN
 	END
 CLOSE mycursor
 DEALLOCATE mycursor
+END
+
+-- UPDATE
+
+CREATE TRIGGER VacationUpdateUserAndDate
+ON Vacation
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Vacation SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE VacationId = (
+		SELECT VacationId from inserted
+	)
 END
