@@ -1,4 +1,6 @@
 
+-- INSERT
+
 CREATE TRIGGER HolidayCreateUserAndDate
 ON Holiday
 AFTER INSERT
@@ -18,4 +20,18 @@ BEGIN
 	END
 CLOSE mycursor
 DEALLOCATE mycursor
+END
+
+-- UPDATE
+
+CREATE TRIGGER HolidayUpdateUserAndDate
+ON Holiday
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Holiday SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE HolidayId = (
+		SELECT HolidayId from inserted
+	)
 END
