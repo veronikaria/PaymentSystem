@@ -1,4 +1,6 @@
 
+-- INSERT
+
 CREATE TRIGGER SubdivisionCreateUserAndDate
 ON Subdivision
 AFTER INSERT
@@ -18,4 +20,18 @@ BEGIN
 	END
 CLOSE mycursor
 DEALLOCATE mycursor
+END
+
+-- UPDATE 
+
+CREATE TRIGGER SubdivisionUpdateUserAndDate
+ON Subdivision
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Subdivision SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE SubdivisionId = (
+		SELECT SubdivisionId from inserted
+	)
 END
