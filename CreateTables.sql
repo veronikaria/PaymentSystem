@@ -91,6 +91,14 @@ CREATE TABLE Holiday
 	"Day" AS DAY("Date")
 )
 
+CREATE TABLE MinimumSalary
+(
+	MinimumSalaryId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	DateStart DATE,
+	DateEnd DATE,
+	MinSalary MONEY 
+)
+
 ALTER TABLE Employee
 ADD FOREIGN KEY (SubdivisionId) REFERENCES Subdivision(SubdivisionId);
 
