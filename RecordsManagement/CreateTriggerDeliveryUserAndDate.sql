@@ -1,4 +1,6 @@
 
+-- INSERT
+
 CREATE TRIGGER DeliveryCreateUserAndDate
 ON Delivery
 AFTER INSERT
@@ -20,3 +22,17 @@ CLOSE mycursor
 DEALLOCATE mycursor
 END
 
+
+-- UPDATE
+
+CREATE TRIGGER DeliveryUpdateUserAndDate
+ON Delivery
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Delivery SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE DeliveryId = (
+		SELECT DeliveryId from inserted
+	)
+END
