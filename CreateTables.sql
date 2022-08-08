@@ -120,3 +120,11 @@ ADD FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId);
 ALTER TABLE Employee
 ADD IsWorks BIT DEFAULT 1 NOT NULL
 
+AlTER TABLE Delivery
+ADD Vacation MONEY
+
+AlTER TABLE Delivery
+ADD Total MONEY
+
+AlTER TABLE Delivery
+ADD TotalEnd AS (CASE WHEN DAY(Date)<=10 THEN Total ELSE Total*1.01 END)
