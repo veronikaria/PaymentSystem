@@ -1,4 +1,6 @@
 
+-- INSERT 
+
 CREATE TRIGGER WeekendCreateUserAndDate
 ON Weekend
 AFTER INSERT
@@ -18,4 +20,18 @@ BEGIN
 	END
 CLOSE mycursor
 DEALLOCATE mycursor
+END
+
+-- UPDATE
+
+CREATE TRIGGER WeekendUpdateUserAndDate
+ON Weekend
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Weekend SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE WeekendId = (
+		SELECT WeekendId from inserted
+	)
 END
