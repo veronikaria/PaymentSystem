@@ -17,7 +17,10 @@ SELECT wh.SalaryWithoutTax, i.DeliveryId
  WHILE @@FETCH_STATUS = 0 
  BEGIN 
 	UPDATE Delivery
-	SET Salary = @salary
+	SET Salary = CASE
+	WHEN day("Date")>10 THEN @salary*0.01*(day("Date")-10)
+	ELSE @salary
+	END
 	WHERE DeliveryId=@id
  FETCH NEXT FROM delivery_Cursor into @salary, @id  
  END
