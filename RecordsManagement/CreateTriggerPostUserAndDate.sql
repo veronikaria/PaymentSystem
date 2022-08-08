@@ -1,4 +1,6 @@
 
+-- INSERT
+
 CREATE TRIGGER PostCreateUserAndDate
 ON Post
 AFTER INSERT
@@ -18,4 +20,18 @@ BEGIN
 	END
 CLOSE mycursor
 DEALLOCATE mycursor
+END
+
+-- UPDATE
+
+CREATE TRIGGER PostUpdateUserAndDate
+ON Post
+AFTER UPDATE
+AS
+BEGIN
+	UPDATE Post SET ULC = CURRENT_USER,
+	DLC=GETDATE() 
+	WHERE PostId = (
+		SELECT PostId from inserted
+	)
 END
