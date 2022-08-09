@@ -1,0 +1,4 @@
+
+CREATE ROLE CustTableReader
+CREATE ROLE ControlVacation
+CREATE ROLE ControlSalaryDelivery
