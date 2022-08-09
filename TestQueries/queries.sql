@@ -91,7 +91,7 @@ JOIN Employee e on tab.EmployeeId=e.EmployeeId
 
 -- TASK 9
 -- Using hierarchical sql query output the employee's surname, first name, name of department in which he works, 
--- and his level EmpLevel (Leader - if he is the head of this department Ú‡ Employee - if he is only an employee)
+-- and his level EmpLevel (Leader - if he is the head of this department √≤√† Employee - if he is only an employee)
 
 WITH EmployeeList AS
 (
